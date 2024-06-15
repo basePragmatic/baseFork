@@ -1,15 +1,23 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	http.HandleFunc("/", homeHandler)
-	fmt.Printf("Server is listening on port %s...\n")
+	router := gin.Default()
+	router.Static("/static", "./static")
+	router.LoadHTMLGlob("templates/*")
+
+	router.GET("/home", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "index.html", nil)
+	})
+
+	router.Run(":8080")
 }
 
-func homeHandler() {
+// func homeHandler() {
 
-}
+// }
