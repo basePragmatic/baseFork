@@ -15,6 +15,8 @@ func main() {
 		c.HTML(http.StatusOK, "index.html", nil)
 	})
 
+	vacancies := []String{"Golang: Balance", "Ruby: Basekitchen"}
+
 	router.Run(":8080")
 }
 
