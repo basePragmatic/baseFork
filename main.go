@@ -11,11 +11,13 @@ func main() {
 	router.Static("/static", "./static")
 	router.LoadHTMLGlob("templates/*")
 
-	router.GET("/home", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "index.html", nil)
-	})
+	vacancies := []string{"Golang: Balance", "Ruby: Basekitchen"}
 
-	vacancies := []String{"Golang: Balance", "Ruby: Basekitchen"}
+	router.GET("/home", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "index.html", gin.H{
+			"Vacancies": vacancies,
+		})
+	})
 
 	router.Run(":8080")
 }
