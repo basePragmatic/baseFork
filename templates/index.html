@@ -14,34 +14,29 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Features</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Pricing</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
-                Dropdown link
-                </a>
-                <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-                </div>
-            </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/create-job">Create Job</a>
+                </li>
             </ul>
         </div>
-        </nav>
-    <div class="container">
-        <ul class="list-group list-group-flush">
-            {{ range .Vacancies }}
-                <li class="list-group-item">{{ . }}</li>
+    </nav>
+    <div class="container mt-5">
+        <h2>Available Jobs</h2>
+        <div class="list-group">
+            {{ range .Jobs }}
+                <div class="list-group-item">
+                    <h5 class="mb-1">{{ .Title }}</h5>
+                    <p class="mb-1">{{ .Description }}</p>
+                    <small>Salary: ${{ .Salary }}</small>
+                    <div class="mt-2">
+                        <a href="/delete/{{ .ID }}" class="btn btn-danger btn-sm">Delete</a>
+                    </div>
+                </div>
             {{ end }}
-        </ul>
+        </div>
     </div>
 </body>
 </html>

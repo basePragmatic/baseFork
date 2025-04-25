@@ -47,3 +47,33 @@ func InsertJob(db *sql.DB, title, description string, salary int) error {
 	_, err = statement.Exec(title, description, salary)
 	return err
 }
+
+func GetAllJobs(db *sql.DB) ([]Job, error) {
+	rows, err := db.Query("SELECT id, title, description, salary FROM jobs")
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var jobs []Job
+	for rows.Next() {
+		var job Job
+		err := rows.Scan(&job.ID, &job.Title, &job.Description, &job.Salary)
+		if err != nil {
+			return nil, err
+		}
+		jobs = append(jobs, job)
+	}
+
+	return jobs, nil
+}
+
+func DeleteJob(db *sql.DB, id int) error {
+	deleteJobSQL := `DELETE FROM jobs WHERE id = ?`
+	statement, err := db.Prepare(deleteJobSQL)
+	if err != nil {
+		return err
+	}
+	_, err = statement.Exec(id)
+	return err
+}
